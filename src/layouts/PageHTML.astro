@@ -1,0 +1,76 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import {Layout} from "../components/Layout";
+import {SITE} from "../consts";
+
+const {
+  title,
+  description,
+  image = SITE.image,
+  lang = "es-MX",
+  type = "article",
+  date,
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang={lang}>
+  <head>
+    <BaseHead
+      title={title}
+      description={description}
+      image={image}
+      date={date}
+      type={type}
+    />
+  </head>
+
+  <body class="w-full text-texto-sft fondo-pts">
+    <Layout client:idle>
+      <slot />
+    </Layout>
+    <script>
+      function getSystemPreference() {
+        if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+          return "enabled";
+        }
+
+        return "disabled";
+      }
+      function getThemeFromLocalStorage() {
+        const themeStr = localStorage.getItem("theme");
+        if (!themeStr) {
+          return null;
+        }
+
+        try {
+          return JSON.parse(themeStr);
+        } catch (err) {
+          return null;
+        }
+      }
+
+      function enableDarkMode() {
+        document.body.classList.add("oscuro");
+      }
+
+      function disableDarkMode() {
+        document.body.classList.remove("oscuro");
+      }
+
+      function setThemeOnNavigation() {
+        const {darkMode} = getThemeFromLocalStorage() || getSystemPreference();
+
+        if (darkMode === "enabled") {
+          enableDarkMode();
+        } else {
+          disableDarkMode();
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        setThemeOnNavigation();
+      });
+    </script>
+  </body>
+</html>

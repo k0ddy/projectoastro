@@ -1,0 +1,37 @@
+---
+import type {CollectionEntry} from "astro:content";
+import FormattedDate from "../components/FormattedDate.astro";
+
+type BlogPosts = Array<CollectionEntry<"blog">>;
+
+interface Props {
+  posts: BlogPosts;
+  title: string;
+}
+
+const {posts, title} = Astro.props;
+---
+
+<section class="mx-auto max-w-5xl px-10">
+  <h1 class="mx-auto my-20 text-2xl text-primario md:text-4xl">{title}</h1>
+  <div class="mx-auto mb-40 max-w-5xl">
+    {
+      posts.map((post) => (
+        <li class=" my-3 flex items-center gap-4 md:my-5 md:text-xl">
+          <FormattedDate
+            date={post.data.date}
+            full={false}
+            classList="md:hidden"
+          />
+          <FormattedDate date={post.data.date} classList="hidden md:block" />
+          <a
+            class="text-texto-str hover:text-primario hover:underline md:text-2xl"
+            href={`/${post.data.type}/${post.slug}/`}
+          >
+            {post.data.title}
+          </a>
+        </li>
+      ))
+    }
+  </div>
+</section>

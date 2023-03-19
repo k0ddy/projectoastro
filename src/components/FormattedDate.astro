@@ -1,0 +1,21 @@
+---
+const {classList, date, full = true} = Astro.props;
+---
+
+<time datetime={date.toISOString()} class={`opacity-80  ${classList}`}>
+  {
+    full &&
+      date?.toLocaleDateString("es-MX", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      })
+  }
+  {
+    !full &&
+      date &&
+      date?.toLocaleDateString("es-MX", {
+        year: "numeric",
+      })
+  }
+</time>

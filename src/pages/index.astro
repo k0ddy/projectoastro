@@ -1,0 +1,18 @@
+---
+import {HomeHero} from "../components/HomeHero";
+import {HomeAcerca} from "../components/HomeAcerca/";
+import PageHTML from "../layouts/PageHTML.astro";
+import {SITE} from "../consts";
+---
+
+<PageHTML
+  title="Contraweb"
+  description="Registro de contraloria CPM"
+  image={SITE.image}
+  lang="es-MX"
+  type="website"
+  date="2021-05-28"
+>
+  <HomeHero client:idle />
+  <HomeAcerca />
+</PageHTML>

@@ -1,0 +1,26 @@
+---
+import PageHTML from "../layouts/PageHTML.astro";
+import {SHORT_RESUME_ES} from "../consts";
+import {SITE} from "../consts";
+---
+
+<PageHTML
+  title="Acerca"
+  description="Conoce todo acerca de Lasfito"
+  image={SITE.image}
+  lang="es-MX"
+  type="website"
+  date="2021-05-28"
+>
+  <section
+    class="mx-auto mt-20 flex h-[90vh] max-w-[70ch] flex-col items-center justify-evenly px-10 leading-loose"
+  >
+    <h1 class="text-3xl text-primario">
+      ¿Qué es <strong>Contraweb</strong> ?
+    </h1>
+    <h2 class="my-5 text-3xl md:text-4xl">Resumen</h2>
+    <p class="text-justify text-xl">
+      {SHORT_RESUME_ES}
+    </p>
+  </section>
+</PageHTML>

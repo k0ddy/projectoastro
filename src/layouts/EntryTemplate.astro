@@ -1,0 +1,58 @@
+---
+import type {CollectionEntry} from "astro:content";
+
+import PageHTML from "./PageHTML.astro";
+import {AcercaAutor} from "../components/AcercaAutor";
+import {TagsInBlog} from "../components/TagsInBlog";
+import {VideoGadget} from "../components/VideoGadget";
+
+type Props = CollectionEntry<"blog">["data"] & {
+  id: string;
+};
+
+const {title, description, date, enlaceyt, thumbnail, type, tag, id} =
+  Astro.props;
+
+const acercaAutor =
+  "Hola soy la persona que escribio esto seguramente soy la persona encargada de la contraloria o la personeria he incluso hasta el presidente del consejo por eso ten seguro que todos estos datos son reales y transparentes";
+---
+
+<PageHTML
+  title={title}
+  description={description}
+  image={thumbnail}
+  lang="es-MX"
+  type="article"
+  date={date}
+>
+  <section class="mx-auto my-5 flex w-screen max-w-5xl flex-col px-5 md:my-20">
+    <h1 class="my-2 text-4xl text-texto-str md:my-5 md:text-5xl">{title}</h1>
+
+    <TagsInBlog tags={tag} />
+
+    {
+      enlaceyt ? (
+        <VideoGadget url={enlaceyt} />
+      ) : (
+        <img src={thumbnail} alt="Portada de artículo" />
+      )
+    }
+  </section>
+
+  <article
+    id="blog"
+    class="prose prose-pink mx-auto flex max-w-[70ch] flex-col items-stretch justify-around px-4 text-left text-xl leading-[35px]"
+  >
+    <slot />
+  </article>
+
+  <AcercaAutor title="Acerca del autor" body={acercaAutor} />
+  <section class="mx-auto mt-20 max-w-5xl px-5">
+    <h3 class="my-5 text-center text-3xl font-bold">¿Dudas o comentarios?</h3>
+    <h3 class="my-10 text-center text-3xl font-bold">¿Alguna errata?</h3>
+    <p class="text-center text-xl">
+      Si tienes una duda o encuentras algun error en este artículo, por favor, no dudes en comunicarte con nosotros: 311 775 7976 - Koddy Lara
+    </p>
+  </section>
+  <div class="mt-20"></div>
+</PageHTML>
